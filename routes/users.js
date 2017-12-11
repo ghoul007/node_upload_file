@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var uuid =  require('uuid/v4');
+var uuid = require("uuid/v4");
 
 var users = [
   { id: 1, name: "ahmed", age: 28, image: "" },
@@ -22,6 +22,13 @@ router.post("/create", function(req, res, next) {
   user.id = uuid();
   users.push(user);
   res.send(user);
+});
+
+router.delete("/:id", function(req, res, next) {
+  var obj = users.find(res => res.id == req.params.id);
+  var index = users.indexOf(obj);
+  users.splice(index, 1);
+  res.send(users);
 });
 
 module.exports = router;
