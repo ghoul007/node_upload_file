@@ -24,6 +24,25 @@ router.post("/create", function(req, res, next) {
   res.send(user);
 });
 
+router.put("/:id", function(req, res, next) {
+  let id = req.params.id;
+  user = users.find(res => res.id == id);
+  let newUser = req.body;
+  newUser.id = id;
+  let index = users.indexOf(user);
+  users.splice(index, 1, newUser);
+  res.send(newUser);
+});
+
+router.patch("/:id", function(req, res, next) {
+  let id = req.params.id;
+  user = users.find(res => res.id == id);
+  let newUser = Object.assign(user, req.body);
+  let index = users.indexOf(user);
+  users.splice(index, 1, newUser);
+  res.send(newUser);
+});
+
 router.delete("/:id", function(req, res, next) {
   var obj = users.find(res => res.id == req.params.id);
   var index = users.indexOf(obj);
